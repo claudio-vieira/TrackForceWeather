@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">TrackForceWeather</string>
+    <string name="forecast_title">Forecast</string>
+    <string name="weather_icon_url">https://openweathermap.org/img/wn/%1$s@2x.png</string>
+    <string name="temperature_range_format">%1$d° - %2$d°</string>
+
+    <string name="location_permission_required">Location Permission Required</string>
+    <string name="location_permission_rationale">This app needs location permission to show weather data for your current location. Please grant permission to continue.</string>
+    <string name="location_permission_request_message">To show weather data for your location, we need access to your device\'s location.</string>
+    <string name="grant_permission">Grant Permission</string>
+    <string name="error">Error</string>
+    <string name="retry">Retry</string>
+    <string name="details">Details</string>
+    <string name="feels_like">Feels like</string>
+    <string name="humidity">Humidity</string>
+    <string name="pressure">Pressure</string>
+    <string name="wind_speed">Wind Speed</string>
+    <string name="degree_celsius">%1$d°C</string>
+    <string name="humidity_percentage">%1$d%%</string>
+    <string name="pressure_hpa">%1$d hPa</string>
+    <string name="wind_speed_mps">%1$.1f m/s</string>
+    <string name="temperature_celsius">%1$d°C</string>
+    <string name="percentage_format">%1$d%%</string>
+    <string name="pressure_format">%1$d hPa</string>
+    <string name="wind_speed_format">%.1f m/s</string>
+
+    <string name="error_failed_fetch_weather">Failed to fetch weather data</string>
+    <string name="error_unexpected">An unexpected error occurred</string>
+
 </resources>

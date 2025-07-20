@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Card dimensions -->
+    <dimen name="card_padding_small">8dp</dimen>
+    <dimen name="card_elevation_default">4dp</dimen>
+
+    <!-- Content spacing -->
+    <dimen name="content_padding">16dp</dimen>
+    <dimen name="spacing_extra_small">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+
+    <!-- Weather icon sizes -->
+    <dimen name="weather_icon_size_medium">40dp</dimen>
+
+    <!-- Loading skeleton dimensions -->
+    <dimen name="loading_title_height">24dp</dimen>
+    <dimen name="loading_text_height">20dp</dimen>
+    <dimen name="loading_date_width">80dp</dimen>
+    <dimen name="loading_temperature_width">60dp</dimen>
+
+    <!-- Corner radius -->
+    <dimen name="corner_radius_small">8dp</dimen>
+    <dimen name="corner_radius_extra_small">4dp</dimen>
+</resources>

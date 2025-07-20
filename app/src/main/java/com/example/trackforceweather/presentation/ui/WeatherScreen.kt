@@ -28,12 +28,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.trackforceweather.R
 import com.example.trackforceweather.domain.model.LocationData
 import com.example.trackforceweather.presentation.viewmodel.WeatherViewModel
 import com.example.trackforceweather.utils.LocationUtils
@@ -173,46 +176,47 @@ fun LocationPermissionContent(
     onRequestPermission: () -> Unit,
     shouldShowRationale: Boolean
 ) {
+    val padding = dimensionResource(id = R.dimen.content_padding)
+    val cardPadding = dimensionResource(id = R.dimen.card_padding_small)
+    val cardElevation = dimensionResource(id = R.dimen.card_elevation_default)
+    val emojiSize = 48.sp
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+            .padding(cardPadding),
+        elevation = CardDefaults.cardElevation(defaultElevation = cardElevation)
     ) {
         Column(
-            modifier = Modifier.padding(24.dp),
+            modifier = Modifier.padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = "📍",
-                fontSize = 48.sp,
-                modifier = Modifier.padding(bottom = 16.dp)
+                fontSize = emojiSize,
+                modifier = Modifier.padding(bottom = dimensionResource(id = R.dimen.spacing_small))
             )
-
             Text(
-                text = "Location Permission Required",
+                text = stringResource(R.string.location_permission_required),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = dimensionResource(id = R.dimen.spacing_extra_small))
             )
-
             Text(
-                text = if (shouldShowRationale) {
-                    "This app needs location permission to show weather data for your current location. Please grant permission to continue."
-                } else {
-                    "To show weather data for your location, we need access to your device's location."
-                },
+                text = stringResource(
+                    if (shouldShowRationale) R.string.location_permission_rationale
+                    else R.string.location_permission_request_message
+                ),
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(bottom = 24.dp)
+                modifier = Modifier.padding(bottom = padding)
             )
-
             Button(
                 onClick = onRequestPermission,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Grant Permission")
+                Text(stringResource(R.string.grant_permission))
             }
         }
     }
@@ -223,30 +227,38 @@ fun ErrorContent(
     error: String,
     onRetry: () -> Unit
 ) {
+    val padding = dimensionResource(id = R.dimen.content_padding)
+    val cardPadding = dimensionResource(id = R.dimen.card_padding_small)
+    val cardElevation = dimensionResource(id = R.dimen.card_elevation_default)
+    val emojiSize = 48.sp
+    val smallSpacing = dimensionResource(id = R.dimen.spacing_small)
+    val extraSmallSpacing = dimensionResource(id = R.dimen.spacing_extra_small)
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(cardPadding),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.errorContainer
-        )
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = cardElevation)
     ) {
         Column(
-            modifier = Modifier.padding(24.dp),
+            modifier = Modifier.padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = "⚠️",
-                fontSize = 48.sp,
-                modifier = Modifier.padding(bottom = 16.dp)
+                fontSize = emojiSize,
+                modifier = Modifier.padding(bottom = smallSpacing)
             )
 
             Text(
-                text = "Error",
+                text = stringResource(R.string.error),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onErrorContainer,
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = extraSmallSpacing)
             )
 
             Text(
@@ -254,16 +266,20 @@ fun ErrorContent(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onErrorContainer,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(bottom = 24.dp)
+                modifier = Modifier.padding(bottom = smallSpacing)
             )
 
             Button(
                 onClick = onRetry,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.error
-                )
+                ),
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Retry", color = MaterialTheme.colorScheme.onError)
+                Text(
+                    text = stringResource(R.string.retry),
+                    color = MaterialTheme.colorScheme.onError
+                )
             }
         }
     }

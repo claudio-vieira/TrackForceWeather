@@ -22,9 +22,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.trackforceweather.R
 import com.example.trackforceweather.domain.model.WeatherForecast
 import java.time.Instant
 import java.time.ZoneId
@@ -37,21 +39,23 @@ fun WeatherForecastContent(forecast: WeatherForecast) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            .padding(dimensionResource(id = R.dimen.card_padding_small)),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = dimensionResource(id = R.dimen.card_elevation_default)
+        )
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(dimensionResource(id = R.dimen.content_padding))) {
             Text(
-                text = "Forecast",
+                text = stringResource(id = R.string.forecast_title),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = dimensionResource(id = R.dimen.spacing_small))
             )
             forecast.dailyForecasts.forEach { item ->
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 4.dp),
+                        .padding(vertical = dimensionResource(id = R.dimen.spacing_extra_small)),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -60,12 +64,19 @@ fun WeatherForecastContent(forecast: WeatherForecast) {
                         style = MaterialTheme.typography.bodyLarge
                     )
                     AsyncImage(
-                        model = "https://openweathermap.org/img/wn/${item.iconCode}@2x.png",
+                        model = stringResource(
+                            id = R.string.weather_icon_url,
+                            item.iconCode
+                        ),
                         contentDescription = item.description,
-                        modifier = Modifier.size(40.dp)
+                        modifier = Modifier.size(dimensionResource(id = R.dimen.weather_icon_size_medium))
                     )
                     Text(
-                        text = "${floor(item.tempMin).toInt()}° - ${item.tempMax.roundToInt()}°",
+                        text = stringResource(
+                            id = R.string.temperature_range_format,
+                            floor(item.tempMin).toInt(),
+                            item.tempMax.roundToInt()
+                        ),
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
@@ -79,49 +90,51 @@ fun WeatherForecastLoadingContent() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            .padding(dimensionResource(id = R.dimen.card_padding_small)),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = dimensionResource(id = R.dimen.card_elevation_default)
+        )
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp),
+                .padding(dimensionResource(id = R.dimen.content_padding)),
             horizontalAlignment = Alignment.Start
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.3f)
-                    .height(24.dp)
-                    .clip(RoundedCornerShape(8.dp))
+                    .height(dimensionResource(id = R.dimen.loading_title_height))
+                    .clip(RoundedCornerShape(dimensionResource(id = R.dimen.corner_radius_small)))
                     .background(Color.LightGray.copy(alpha = 0.5f))
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.content_padding)))
 
             repeat(5) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 8.dp),
+                        .padding(vertical = dimensionResource(id = R.dimen.spacing_small)),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(
                         modifier = Modifier
-                            .width(80.dp)
-                            .height(20.dp)
-                            .clip(RoundedCornerShape(4.dp))
+                            .width(dimensionResource(id = R.dimen.loading_date_width))
+                            .height(dimensionResource(id = R.dimen.loading_text_height))
+                            .clip(RoundedCornerShape(dimensionResource(id = R.dimen.corner_radius_extra_small)))
                             .background(Color.LightGray.copy(alpha = 0.5f))
                     )
                     Box(
                         modifier = Modifier
-                            .size(40.dp)
+                            .size(dimensionResource(id = R.dimen.weather_icon_size_medium))
                             .clip(CircleShape)
                             .background(Color.LightGray.copy(alpha = 0.5f))
                     )
                     Box(
                         modifier = Modifier
-                            .width(60.dp)
-                            .height(20.dp)
-                            .clip(RoundedCornerShape(4.dp))
+                            .width(dimensionResource(id = R.dimen.loading_temperature_width))
+                            .height(dimensionResource(id = R.dimen.loading_text_height))
+                            .clip(RoundedCornerShape(dimensionResource(id = R.dimen.corner_radius_extra_small)))
                             .background(Color.LightGray.copy(alpha = 0.5f))
                     )
                 }
