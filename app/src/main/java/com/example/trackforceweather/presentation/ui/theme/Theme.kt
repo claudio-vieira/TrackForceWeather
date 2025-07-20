@@ -1,6 +1,5 @@
-package com.example.trackforceweather.ui.theme
+package com.example.trackforceweather.presentation.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

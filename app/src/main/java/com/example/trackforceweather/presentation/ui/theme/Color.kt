@@ -1,4 +1,4 @@
-package com.example.trackforceweather.ui.theme
+package com.example.trackforceweather.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
