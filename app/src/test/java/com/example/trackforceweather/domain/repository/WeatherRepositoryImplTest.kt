@@ -40,11 +40,12 @@ class WeatherRepositoryImplTest {
     private val weatherApi = mockk<WeatherApi>()
     private val weatherDao = mockk<WeatherDao>(relaxed = true)
     private val forecastDao = mockk<ForecastDao>(relaxed = true)
+    private val networkMonitor = mockk<NetworkMonitor>(relaxed = true)
     private lateinit var repository: WeatherRepositoryImpl
 
     @Before
     fun setup() {
-        repository = WeatherRepositoryImpl(weatherApi, weatherDao, forecastDao)
+        repository = WeatherRepositoryImpl(weatherApi, weatherDao, forecastDao, networkMonitor)
     }
 
     @Test
@@ -74,6 +75,8 @@ class WeatherRepositoryImplTest {
         every { WeatherMapper.mapFromDto(weatherResponseDto) } returns weather
         every { WeatherMapper.mapToEntity(weather) } returns mockk()
 
+        every { networkMonitor.isConnected() } returns true
+
         repository.getCurrentWeather(location).test {
             assert(awaitItem() is Resource.Loading)
             val success = awaitItem()
@@ -88,6 +91,8 @@ class WeatherRepositoryImplTest {
         val response: Response<WeatherResponseDto> = Response.error(400, "".toResponseBody())
         coEvery { weatherApi.getCurrentWeather(any(), any(), any()) } returns response
 
+        every { networkMonitor.isConnected() } returns true
+
         repository.getCurrentWeather(location).test {
             assert(awaitItem() is Resource.Loading)
             val error = awaitItem()
@@ -100,6 +105,8 @@ class WeatherRepositoryImplTest {
     fun `getCurrentWeather emits Loading and Error on exception`() = runTest {
         val location = LocationData(1.0, 2.0, "City")
         coEvery { weatherApi.getCurrentWeather(any(), any(), any()) } throws RuntimeException("Network failure")
+
+        every { networkMonitor.isConnected() } returns true
 
         repository.getCurrentWeather(location).test {
             assert(awaitItem() is Resource.Loading)
