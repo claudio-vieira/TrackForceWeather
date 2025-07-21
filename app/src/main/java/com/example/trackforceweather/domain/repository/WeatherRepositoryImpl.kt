@@ -20,10 +20,17 @@ import javax.inject.Inject
 class WeatherRepositoryImpl @Inject constructor(
     private val weatherApi: WeatherApi,
     private val weatherDao: WeatherDao,
-    private val forecastDao: ForecastDao
+    private val forecastDao: ForecastDao,
+    private val networkMonitor: NetworkMonitor
 ) : WeatherRepository {
 
     override suspend fun getCurrentWeather(location: LocationData): Flow<Resource<Weather>> = flow {
+
+        if (!networkMonitor.isConnected()) {
+            emit(Resource.Error("Not connected to the internet"))
+            return@flow
+        }
+
         emit(Resource.Loading())
 
         try {
@@ -51,6 +58,12 @@ class WeatherRepositoryImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     override suspend fun getWeatherForecast(location: LocationData): Flow<Resource<WeatherForecast>> = flow {
+
+        if (!networkMonitor.isConnected()) {
+            emit(Resource.Error("Not connected to the internet"))
+            return@flow
+        }
+
         emit(Resource.Loading())
 
         try {

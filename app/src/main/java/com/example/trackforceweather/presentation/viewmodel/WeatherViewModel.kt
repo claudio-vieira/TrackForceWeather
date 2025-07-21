@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// Observer pattern implementation with StateFlow
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val getWeatherUseCase: GetWeatherUseCase,
@@ -26,6 +25,7 @@ class WeatherViewModel @Inject constructor(
     private val getCachedForecastUseCase: GetCachedForecastUseCase
 ) : ViewModel() {
 
+    // Observer pattern implementation with StateFlow
     private val _uiState = MutableStateFlow(WeatherUiState())
     val uiState: StateFlow<WeatherUiState> = _uiState.asStateFlow()
 
