@@ -23,7 +23,7 @@ For behavioral design the Observer flow was used.
 # Getting Started
 
 - Clone the Repository
-- Get your API key from OpenWeatherMap
+- Get your API key from [OpenWeatherMap API](https://openweathermap.org/api)
 - Add your key on local.properties *WEATHER_API_KEY=your_api_key_here*
 - Run the Application
 
@@ -32,3 +32,8 @@ For behavioral design the Observer flow was used.
 - On launch, the app fetches weather data and saves it locally in Room.
 - If the app is killed, the last saved weather data is displayed on the next launch.
 - This ensures the user always has access to the last known weather data even without internet.
+
+# Testing
+
+Run tests directly on Android Studio or use ./gradlew
+
